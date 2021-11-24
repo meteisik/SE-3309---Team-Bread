@@ -1,5 +1,4 @@
 
-
 CREATE TABLE City(
 UNLOCode CHAR(7) NOT NULL,
 cityName VARCHAR(100),
@@ -90,7 +89,7 @@ CREATE TABLE CovidVarient(
         PRIMARY KEY(healthCardId, outbreakDistrict),
         FOREIGN KEY(healthCardId) REFERENCES Person(healthCardId),
         FOREIGN KEY(outbreakDistrict) REFERENCES Hotspot(outbreakDistrict),
-        FOREIGN KEY(infectionName) REFERENCES covidvarient(varientName)
+        FOREIGN KEY(infectionName) REFERENCES CovidVarient(varientName)
     );
     
     CREATE TABLE Hospitalized (
@@ -115,13 +114,13 @@ CREATE TABLE CovidVarient(
         vaccineAdministrators VARCHAR(15) NOT NULL,
         healthCardId CHAR(11) NOT NULL,
         PRIMARY KEY(address),
+        FOREIGN KEY(address) REFERENCES HealthCareCentre(address),
         FOREIGN KEY(healthCardId) REFERENCES Person(healthCardId)
     );
-    
+        
     CREATE TABLE VaccineAppointment(
 		injectionDate DATE NOT NULL,
         address VARCHAR(15) NOT NULL,
-        vaccineComplications VARCHAR(100) NOT NULL,
         PRIMARY KEY(injectionDate),
         FOREIGN KEY(address) REFERENCES VaccineClinic (address)
     );
@@ -132,7 +131,7 @@ CREATE TABLE CovidVarient(
         registrationDate  DATE NOT NULL,
         PRIMARY KEY(healthCardId, registrationDate),
         FOREIGN KEY(healthCardId) REFERENCES Person(healthCardId),
-        FOREIGN KEY(registrationDate) REFERENCES vaccineappointment(injectionDate)
+        FOREIGN KEY(registrationDate) REFERENCES VaccineAppointment(injectionDate)
     );
     
     CREATE TABLE VaccineShot(
@@ -156,5 +155,4 @@ CREATE TABLE CovidVarient(
         FOREIGN KEY(address) REFERENCES VaccineClinic (address)
         
 	);
-    
     
