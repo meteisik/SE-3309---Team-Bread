@@ -1,10 +1,9 @@
 
 
-
 CREATE TABLE City(
-UNLOCode CHAR(5) NOT NULL,
+UNLOCode CHAR(7) NOT NULL,
 cityName VARCHAR(100),
-population VARCHAR(10),
+population INT,
 
 PRIMARY KEY (UNLOCode)
 );
@@ -12,22 +11,24 @@ PRIMARY KEY (UNLOCode)
 CREATE TABLE Person(
 healthCardId CHAR(11) NOT NULL,
 personName VARCHAR(30) NOT NULL,
-birthDate varchar (15) NOT NULL,
-gender CHAR(1) NOT NULL DEFAULT("U"),
-doseNumber INT NOT NUll,
-immunity BOOL NOT NULL DEFAULT("FALSE"),
+birthDate DATE NOT NULL,
+gender CHAR(1) NOT NULL DEFAULT("U") ,
 vaccineComplications CHAR(1),
-vaccinedStatus BOOL DEFAULT("FALSE"),
-administeredVaccineType VARCHAR(15),
-latestVaccineDate VARCHAR(15),
-UNLOCode CHAR(5) ,
+vaccinedStatus BOOL NOT NULL DEFAULT("FALSE"),
+UNLOCode CHAR(7) NOT NULL,
+doseNumber INT NOT NULL DEFAULT (0), 
+immunity BOOL NOT NULL DEFAULT("False"),
+administedVaccineType VARCHAR(30),
+latestVaccinatedDate VARCHAR(15),
+address VARCHAR(30) NOT NULL,
 PRIMARY KEY (healthCardId),
 FOREIGN KEY (UNLOCode) REFERENCES City(UNLOCode)
 );
 
 CREATE TABLE HealthCareCentre(
-address VARCHAR(30),
-UNLOCode CHAR(5),
+address VARCHAR(30) NOT NULL,
+UNLOCode CHAR(7) NOT NULL,
+numOfWorkers INT DEFAULT(0),
 
 PRIMARY KEY (address),
 FOREIGN KEY (UNLOCode) REFERENCES City(UNLOCode)
@@ -36,9 +37,9 @@ FOREIGN KEY (UNLOCode) REFERENCES City(UNLOCode)
 CREATE TABLE Hospital(
 address VARCHAR(30),
 hospitalName VARCHAR(15),
-bedsAvailable INT,
-hospitalStaffTotal INT,
-numOfCovidCases INT,
+bedsAvailable INT NOT NULL DEFAULT(0),
+hospitalStaffTotal INT NOT NULL DEFAULT(0),
+numOfCovidCases INT DEFAULT(0),
 PRIMARY KEY (address),
 FOREIGN KEY (address)REFERENCES HealthCareCentre(address)
 
@@ -58,17 +59,13 @@ CREATE TABLE CovidVarient(
     numPeople INT NOT NULL DEFAULT(0),
     numCases INT NOT NULL DEFAULT(0),
     numResolved INT NOT NULL DEFAULT(0),
-    UNLOCode VARCHAR(5) NOT NULL ,
+    numRecovered INT NOT NULL DEFAULT(0),
+    UNLOCode VARCHAR(6) NOT NULL ,
     PRIMARY KEY(outbreakDistrict),
     FOREIGN KEY(UNLOCode) REFERENCES City (UNLOCode)
     );
     
-    CREATE TABLE HotspotRecovered(
-    numPeople INT NOT NULL DEFAULT(0),
-    numCases INT NOT NULL DEFAULT(0),
-    numResolved INT NOT NULL DEFAULT(0),
-    numRecovered INT NOT NULL DEFAULT(0)
-    );
+
     
     CREATE TABLE HealthCareWorker(
 		workerLicence CHAR(9) NOT NULL,
@@ -92,7 +89,8 @@ CREATE TABLE CovidVarient(
         
         PRIMARY KEY(healthCardId, outbreakDistrict),
         FOREIGN KEY(healthCardId) REFERENCES Person(healthCardId),
-        FOREIGN KEY(outbreakDistrict) REFERENCES Hotspot(outbreakDistrict)
+        FOREIGN KEY(outbreakDistrict) REFERENCES Hotspot(outbreakDistrict),
+        FOREIGN KEY(infectionName) REFERENCES covidvarient(varientName)
     );
     
     CREATE TABLE Hospitalized (
@@ -103,29 +101,10 @@ CREATE TABLE CovidVarient(
         FOREIGN KEY(address) REFERENCES Hospital(address)
     );
     
-    CREATE TABLE VaccineComplications(
-		administeredVaccineType VARCHAR(15) NOT NULL,
-        vaccineComplications VARCHAR(100) NOT NULL,
-        PRIMARY KEY(administeredVaccineType)
-    );
-    
-    
-    
-    CREATE TABLE PersonLocation(
-		healthcardId CHAR(9) NOT NULL,
-		address VARCHAR(15) NOT NULL,
-        UNLOCode VARCHAR(15)  NOT NULL,
-        PRIMARY KEY(healthCardId),
-        FOREIGN KEY(UNLOCode) REFERENCES City(UNLOCode),
-        FOREIGN KEY(healthCardId) REFERENCES Person(healthCardId)
-        
-        
-    );
-    
     CREATE TABLE VaccineType(
 		vaccineName VARCHAR(15) NOT NULL,
         doseAmount VARCHAR(15) NOT NULL,
-        sideEffects VARCHAR(15) NOT NULL,
+        sideEffect VARCHAR(50) NOT NULL,
         PRIMARY KEY(vaccineName)
     );
     
@@ -134,47 +113,48 @@ CREATE TABLE CovidVarient(
         clinicName VARCHAR(30) NOT NULL,
         clinicStaffTotal INT NOT NULL,
         vaccineAdministrators VARCHAR(15) NOT NULL,
-        PRIMARY KEY(address)
+        healthCardId CHAR(11) NOT NULL,
+        PRIMARY KEY(address),
+        FOREIGN KEY(healthCardId) REFERENCES Person(healthCardId)
     );
     
     CREATE TABLE VaccineAppointment(
-		injectionDate VARCHAR(15) NOT NULL,
-        healthCardId CHAR(11)  NOT NULL,
-        vaccineName VARCHAR(15) NOT NULL,
+		injectionDate DATE NOT NULL,
         address VARCHAR(15) NOT NULL,
+        vaccineComplications VARCHAR(100) NOT NULL,
         PRIMARY KEY(injectionDate),
-        FOREIGN KEY(healthCardId) REFERENCES Person (healthCardId),
-        FOREIGN KEY(vaccineName) REFERENCES VaccineType (vaccineName),
         FOREIGN KEY(address) REFERENCES VaccineClinic (address)
     );
     
     
     CREATE TABLE Registration(
 		healthCardId CHAR(11)  NOT NULL,
-        address VARCHAR(15) NOT NULL,
-        appointmentDate VARCHAR(15) NOT NULL,
-        PRIMARY KEY(healthCardId, address, appointmentDate),
+        registrationDate  DATE NOT NULL,
+        PRIMARY KEY(healthCardId, registrationDate),
         FOREIGN KEY(healthCardId) REFERENCES Person(healthCardId),
-        FOREIGN KEY(address) REFERENCES HealthCareCentre(UNLOCode),
-        FOREIGN KEY(appointmentDate) REFERENCES VaccineAppointment(injectionDate)
+        FOREIGN KEY(registrationDate) REFERENCES vaccineappointment(injectionDate)
     );
     
-    CREATE TABLE Injection(
-		injectionDate VARCHAR(15) NOT NULL,
+    CREATE TABLE VaccineShot(
+		lotNumber VARCHAR(10) NOT NULL,
+        expiryDate DATE NOT NULL,
+        vaccineName VARCHAR(15) NOT NULL,
+        healthCardId CHAR(11) NOT NULL,
+        
+       
+        PRIMARY KEY(lotNumber),
+		FOREIGN KEY(vaccineName) REFERENCES VaccineType (vaccineName),
+		FOREIGN KEY(healthCardId) REFERENCES Person (healthCardId)
+        
+    );
+    
+        CREATE TABLE Injection(
+		lotNumber VARCHAR(10) NOT NULL,
         address VARCHAR(15) NOT NULL,
-        PRIMARY KEY(injectionDate,Address),
-        FOREIGN KEY(injectionDate) REFERENCES VaccineAppointment (injectionDate),
+        PRIMARY KEY(lotNumber,address),
+        FOREIGN KEY(lotNumber) REFERENCES VaccineShot (lotNumber),
         FOREIGN KEY(address) REFERENCES VaccineClinic (address)
         
 	);
-    
-    CREATE TABLE VaccineExpiration(
-		expiryDate VARCHAR(15) NOT NULL,
-        vaccineName VARCHAR(15) NOT NULL,
-        injectionDate VARCHAR(15) NOT NULL,
-        PRIMARY KEY (injectionDate, vaccineName),
-        FOREIGN KEY(injectionDate) REFERENCES VaccineAppointment (injectionDate),
-        FOREIGN KEY(vaccineName) REFERENCES VaccineAppointment (vaccineName)
-    );
     
     
