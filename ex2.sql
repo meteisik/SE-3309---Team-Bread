@@ -52,14 +52,14 @@ CREATE TABLE CovidVarient(
     PRIMARY KEY(varientName)
     
     );
-    
+        
     CREATE TABLE Hotspot(
     outbreakDistrict VARCHAR(30) NOT NULL,
     numPeople INT NOT NULL DEFAULT(0),
     numCases INT NOT NULL DEFAULT(0),
     numResolved INT NOT NULL DEFAULT(0),
     numRecovered INT NOT NULL DEFAULT(0),
-    UNLOCode VARCHAR(6) NOT NULL ,
+    UNLOCode CHAR(7) NOT NULL ,
     PRIMARY KEY(outbreakDistrict),
     FOREIGN KEY(UNLOCode) REFERENCES City (UNLOCode)
     );
