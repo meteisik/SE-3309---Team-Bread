@@ -11,7 +11,7 @@ GROUP BY workerLicence, WorkingAt.address
 
 SELECT outbreakDistrict, numPeople, numCases, numResolved, numRecovered
 FROM Hotspot
-WHERE UNLOCode = (SELECT UNLOCode FROM City WHERE cityName='London');
+WHERE UNLOCode = (SELECT UNLOCode FROM City WHERE cityName='Elk Point ');
 
 SELECT * FROM CovidVarient
 WHERE varientName='delta';
