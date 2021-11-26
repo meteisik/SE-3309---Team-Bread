@@ -1,14 +1,17 @@
 SELECT * FROM WorkingAt
-LEFT JOIN Hospital ON WorkingAt.address = Hospital.address 
+LEFT JOIN Hospital ON WorkingAt.address = Hospital.address
+WHERE EXISTS(SELECT address, workerLicence FROM WorkingAt)
 UNION 
 SELECT * FROM WorkingAt
-RIGHT JOIN Hospital ON WorkingAt.address = Hospital.address;
+RIGHT JOIN Hospital ON WorkingAt.address = Hospital.address
+GROUP BY workerLicence, WorkingAt.address
+ ;
 
 
 
 SELECT outbreakDistrict, numPeople, numCases, numResolved, numRecovered
 FROM Hotspot
-WHERE UNLOCode = (SELECT UNLOCode FROM City WHERE cityName='London');
+WHERE UNLOCode = (SELECT UNLOCode FROM City WHERE cityName='Elk Point ');
 
 SELECT * FROM CovidVarient
 WHERE varientName='delta';
