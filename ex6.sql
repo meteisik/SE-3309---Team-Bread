@@ -12,7 +12,7 @@ INSERT INTO Person VALUES
     "M",
     "N",
     "Not Vaccinated",
-    "CA  4NG ",
+    "CALON",
     1,
     TRUE,
     "Pfizer",
@@ -28,7 +28,7 @@ INSERT INTO Hotspot VALUES
     10000,
     10000,
     9500,
-    "CA  4NG "
+    "CALON"
 );
 
 #Creating custom new data for covid varient

@@ -1,5 +1,4 @@
 
-
 CREATE TABLE City(
 UNLOCode CHAR(8) NOT NULL,
 cityName VARCHAR(100),
@@ -89,7 +88,7 @@ CREATE TABLE CovidVarient(
         
         PRIMARY KEY(healthCardId, outbreakDistrict),
         FOREIGN KEY(healthCardId) REFERENCES Person(healthCardId),
-        FOREIGN KEY(outbreakDistrict) REFERENCES Hotspot(outbreakDistrict),
+        FOREIGN KEY(outbreakDistrict) REFERENCES Hotspot(outbreakDistrict) ON DELETE CASCADE,
         FOREIGN KEY(infectionName) REFERENCES CovidVarient(varientName)
     );
     
