@@ -6,7 +6,7 @@ RIGHT JOIN Hospital ON WorkingAt.address = Hospital.address;
 
 
 
-SELECT outbreakDistrict, numPeople, numCases, numResolved, num Recovered
+SELECT outbreakDistrict, numPeople, numCases, numResolved, numRecovered
 FROM Hotspot
 WHERE UNLOCode = (SELECT UNLOCode FROM City WHERE cityName='London');
 
@@ -25,14 +25,14 @@ FROM Person p, VaccineShot v, VaccineClinic c
 WHERE p.healthCardID = v.healthCardID AND p.healthCardID= c.healthCardID 
 ORDER BY p.healthCardID, p.personName, c.clinicName, v.vaccineName;
 
-SELECT population-(SELECT COUNT(healthCardID)
+SELECT cityName ,population-(SELECT COUNT(healthCardID)
 FROM Person
-WHERE doseNumber = 0 AND UNLOCode =(SELECT UNLOCode FROM City WHERE cityName='London')) AS healthyPop
+WHERE doseNumber = 0 AND UNLOCode =(SELECT UNLOCode FROM City WHERE cityName='Elk Point ')) AS healthyPop
 FROM City
-WHERE cityName='London';
+WHERE cityName='Elk Point ';
 
 SELECT * 
 FROM Person
 WHERE healthCardID IN 
-(SELECT healthCardID FROM Hospitalized WHERE address= (SELECT address FROM Hospital WHERE hospitalName= 'name here'));
+(SELECT healthCardID FROM Hospitalized WHERE address= (SELECT address FROM Hospital WHERE hospitalName= 'Peterborough Regional Health Centre'));
 
