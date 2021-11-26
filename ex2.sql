@@ -156,3 +156,5 @@ CREATE TABLE CovidVarient(
         
 	);
     
+    CREATE UNIQUE INDEX personInfo ON Person(healthCardId,personName,address,birthDate,gender);
+    
