@@ -1,6 +1,6 @@
 import React from 'react'
 import { Typography } from '@mui/material'
-import Table from "./Table"
+import Table from "./Components/Tables/Table"
 function Medical() {
  
 

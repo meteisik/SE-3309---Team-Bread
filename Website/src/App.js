@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import City from './City';
 import Home from './Home';
-import Table from "./Table"
+import Table from "./Components/Tables/Table"
 import Appointments from "./Appointments"
 import Medical from "./Medical"
 //Implement Control + C as a button bound.
@@ -29,7 +29,8 @@ function App() {
       <Switch>
    
    
-                <Route path='/Home' exact component={Home} />
+                <Route path='/' component={Home} />
+                <Route path='/Home' component={Home} />
                 <Route path='/City' component={City}/>
                 <Route path='/Appointments' component={Appointments}/>
                 <Route path='/Medical' component={Medical}/>
