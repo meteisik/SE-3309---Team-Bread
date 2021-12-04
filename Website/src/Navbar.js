@@ -22,11 +22,12 @@ import {GiSlicedBread} from 'react-icons/gi'
 import {AiFillSetting} from 'react-icons/ai'
 import { Divider } from "@mui/material";
 import { purple } from '@mui/material/colors';
+const pages = ['COVID PATIENTS', 'HOTSPOTS', 'VACCINATED', 'HOSPITALS'];
+const settings = ['Admin', 'Public'];
 
 
 
-
-const NavbarVer2 = () => {
+const Navbar = () => {
 
   function closeTab(){
     window.close();
@@ -97,17 +98,17 @@ const NavbarVer2 = () => {
               }}
             >
              
-              <MenuItem component={Link} to= "/Home" onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">HOME</Typography> {/* menu items */}
+              <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">OOOOM</Typography> {/* menu items */}
               </MenuItem>
-              <MenuItem component={Link} to= "/City" onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">CITY</Typography> {/* menu items */}
+              <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">1234</Typography> {/* menu items */}
               </MenuItem>
-              <MenuItem component={Link} to= "/Medical" onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">MEDICAL</Typography> {/* menu items */}
+              <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">567</Typography> {/* menu items */}
               </MenuItem>
-              <MenuItem component={Link} to= "/Appointments" onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">APPOINTMENT</Typography> {/* menu items */}
+              <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">482</Typography> {/* menu items */}
               </MenuItem>
               
             </Menu>
@@ -122,28 +123,18 @@ const NavbarVer2 = () => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
          
-            <Button component={Link} to= "/Home" onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
-              HOME
+            <Button component={Link} to= "/Home"
+           
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                COVID CASES
             </Button>
           
-            <Button component={Link} to= "/City" onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
-              CITY
+            <Button component={Link} to= "/Covid" onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
+              HOTSPOTS
             </Button>
         
-            <Button component={Link} to= "/Medical" onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
-              MEDICAL
-            </Button>
-
-            <Button component={Link} to= "/Appointments" onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
-              APPOINTMENTS
-            </Button>
-              
-
-
-
-
-
-
               
           </Box>
 
@@ -204,4 +195,4 @@ const NavbarVer2 = () => {
     </AppBar>
   );
 };
-export default NavbarVer2;
+export default Navbar;

@@ -11,7 +11,7 @@ import List  from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import logo from './kermit.jpg';
 import logo2 from './Trig.jpg';
-function Chat() 
+function Covid() 
 {
     return (
       
@@ -70,4 +70,4 @@ function Chat()
     )
 }
 
-export default Chat
+export default Covid

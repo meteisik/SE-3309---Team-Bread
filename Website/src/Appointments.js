@@ -1,7 +1,7 @@
 import React from 'react'
 import { Typography } from '@mui/material'
 import Table from "./Table"
-function Home() {
+function Appointments() {
  
 
 
@@ -10,7 +10,7 @@ function Home() {
        
 <div id ="message container"> 
 
-<Table/>
+HELLO THIS IS APPOINTMENTS
 </div>
 
 
@@ -20,4 +20,4 @@ function Home() {
     )
 }
 
-export default Home
+export default Appointments

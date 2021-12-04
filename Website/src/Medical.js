@@ -1,7 +1,7 @@
 import React from 'react'
 import { Typography } from '@mui/material'
 import Table from "./Table"
-function Home() {
+function Medical() {
  
 
 
@@ -9,8 +9,7 @@ function Home() {
     return (
        
 <div id ="message container"> 
-
-<Table/>
+HELLO THIS IS MEDICAL
 </div>
 
 
@@ -20,4 +19,4 @@ function Home() {
     )
 }
 
-export default Home
+export default Medical
