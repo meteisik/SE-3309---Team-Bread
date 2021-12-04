@@ -1,4 +1,4 @@
-import React from 'react'
+import React , { useState,useEffect }from 'react'
 import { Typography } from '@mui/material'
 
 function database(){
@@ -30,13 +30,28 @@ function database(){
     conn.end();
 }
 
+
 function Home() {
     
+    const [apiResponse, setResponse] = useState('');
+
+   /* useEffect(() => {
+        callAPI();
+    }, []);*/
+
+    function getCovidVarients() {
+        fetch("http://localhost:9000/testAPI/covidVarients")
+            .then(res => res.text())
+            .then(res => setResponse(res));
+      }
+
+
     return (
        
 <div id ="message container"> 
 
-<button onClick={database}>click me</button>
+<button onClick={getCovidVarients}>click me</button>
+<text>{apiResponse}</text>
 
 </div>
 
