@@ -29,7 +29,7 @@ function App() {
       <Switch>
    
    
-                <Route path='/' component={Home} />
+                
                 <Route path='/Home' component={Home} />
                 <Route path='/City' component={City}/>
                 <Route path='/Appointments' component={Appointments}/>
