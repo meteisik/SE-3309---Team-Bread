@@ -19,20 +19,23 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import Paper from "@mui/material/Paper";
 import Output from './Output.json';
-const Covid=()=> {
+const Covid=()=> {//sets the react hooks
     const [apiResponse, setResponse] = useState([]);
     const [apiResponse2, setResponse2] = useState([]);
     const [apiResponse3, setResponse3] = useState([]);
 
-    function componentDidMount() {
+    function componentDidMount() { //main function
 
         let txt=document.getElementById('txt');
         let cities = txt.value;
+		//takes the text box value and adds it to a post request
         const requestOptions = {
             method: "POST",
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({cities})
         };
+		
+		//fetches queries from server and sets them to an appropriate react hook
         fetch("http://localhost:9000/City/cities", requestOptions)
             .then(res => res.text())
             .then(res => setResponse(JSON.parse(res)));
@@ -47,7 +50,7 @@ const Covid=()=> {
             .then(res=>setResponse3(JSON.parse(res)))
 
     }
-
+//tables and html are built below 
         return (
 
             <div>

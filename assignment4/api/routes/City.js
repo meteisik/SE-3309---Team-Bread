@@ -8,7 +8,7 @@ router.get("/", function(req, res, next) {
     res.send("API is working properly");
 });
 
-
+// the functions below assign the post request body to a variable, connects to the database, and then uses that variable to make a mysql query and then returns it to the react front end in a JSON string
 
 router.post('/cities',function (req,res,next){
 
