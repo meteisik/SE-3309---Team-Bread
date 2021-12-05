@@ -3,14 +3,16 @@ import logo2 from './Trig.jpg';
 import './App.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Navbar from './Navbar';
 import NavbarVer2 from './NavbarVer2';
 import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Chat from './Chat';
+import { BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
+import City from './City';
 import Home from './Home';
-
-
+import Table from "./Components/Tables/Table"
+import Appointments from "./Appointments"
+import Medical from "./Medical"
 //Implement Control + C as a button bound.
 
 
@@ -27,10 +29,13 @@ function App() {
       <Switch>
    
    
-                <Route path='/' exact component={Home} />
-                <Route path='/Home' exact component={Home} />
-                <Route path='/Chat' component={Chat}/>
-
+      <Route exact path="/">
+    <Redirect to="/Home" />
+</Route>
+                <Route path='/Home' component={Home} />
+                <Route path='/City' component={City}/>
+                <Route path='/Appointments' component={Appointments}/>
+                <Route path='/Medical' component={Medical}/>
 
       </Switch>
 

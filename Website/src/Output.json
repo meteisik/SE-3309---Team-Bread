@@ -1,0 +1,12 @@
+[
+    {"healthCardID":"100296998","personName":"Felix Angalich","vaccineName":"Pizer","clinicName":"Casey House Hospice"},
+    {"healthCardID":"100473392","personName":"Belen Rubarts","vaccineName":"Pizer","clinicName":"Centre for Addiction and Mental Health"},
+    {"healthCardID":"100630438","personName":"Lashawnda Stuer","vaccineName":"Moderna","clinicName":"Centre for Addiction and Mental Health - Brentcliffe Rd. Site"},
+    {"healthCardID":"100962975","personName":"Miss Dunning","vaccineName":"Moderna","clinicName":"Centre for Addiction and Mental Health - College St. Site"},
+    {"healthCardID":"100973209","personName":"Margart Witten","vaccineName":"Pizer","clinicName":"Centre for Addiction and Mental Health - Russell St. Site"},
+    {"healthCardID":"101326789","personName":"Thea Petermeier","vaccineName":"Pizer","clinicName":"Chatham-Kent Health Alliance"},
+    {"healthCardID":"103112768","personName":"Joesph Degonia","vaccineName":"Pizer","clinicName":"Chatham-Kent Health Alliance - Sydenham District Hospital Campus"},
+    {"healthCardID":"103273498","personName":"Tennie Arau","vaccineName":"Moderna","clinicName":"Child and Parent Resource Institute"},
+    {"healthCardID":"103318106","personName":"Kindra Dishong","vaccineName":"Johnson & Johnson","clinicName":"Children's Hospital of Eastern Ontario"},
+    {"healthCardID":"104658933","personName":"Meaghan Villanueva","vaccineName":"Johnson & Johnson","clinicName":"Collingwood General and Marine Hospital"},{"healthCardID":"104673440","personName":"Paz Sahagun","vaccineName":"Moderna","clinicName":"Cornwall Community Care - Mcconnell Ave."}
+]
