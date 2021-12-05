@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState,useEffect } from 'react'
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -11,63 +11,127 @@ import List  from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import logo from './kermit.jpg';
 import logo2 from './Trig.jpg';
-function Covid() 
-{
-    return (
-      
-      <List>
-<ListItem>
- <Card sx={{ maxWidth: 345 }}>
-      <CardMedia
-        component="img"
-        height="300"
-        image= {logo}
-        alt="LIZARD "
-      />
-      <CardContent>
-        <Typography position = "middle"gutterBottom variant="h5" component="div">
-          Kermit the god
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          THIS IS A BOX THAT IS USED TO DISPLAY THE VALOR OF KERMIT
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
-      </CardActions>
-    </Card>
+import TableBody from "@mui/material/TableBody";
+import TableContainer from "@mui/material/TableContainer";
+import Table from "@mui/material/Table";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import TableCell from "@mui/material/TableCell";
+import Paper from "@mui/material/Paper";
+import Output from './Output.json';
+const Covid=()=> {
+    const [apiResponse, setResponse] = useState([]);
+    const [apiResponse2, setResponse2] = useState([]);
+    const [apiResponse3, setResponse3] = useState([]);
+
+    function componentDidMount() {
+
+        let txt=document.getElementById('txt');
+        let cities = txt.value;
+        const requestOptions = {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({cities})
+        };
+        fetch("http://localhost:9000/City/cities", requestOptions)
+            .then(res => res.text())
+            .then(res => setResponse(JSON.parse(res)));
 
 
-    </ListItem>
+        fetch("http://localhost:9000/City/vaccinatedincities", requestOptions)
+            .then(res=>res.text())
+            .then(res=>setResponse2(JSON.parse(res)))
 
-    <ListItem>
- <Card sx={{ maxWidth: 345 }}>
-      <CardMedia
-        component="img"
-        height="140"
-        image={logo2}
-        alt="2ND BOX"
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          Lizard
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
-      </CardActions>
-    </Card>
+        fetch("http://localhost:9000/City/totalCasesinCity", requestOptions)
+            .then(res=>res.text())
+            .then(res=>setResponse3(JSON.parse(res)))
+
+    }
+
+        return (
+
+            <div>
+                <input type={'text'} id={'txt'}></input><br/>
+                <button onClick={componentDidMount}>submit query</button>
+                <br/>
+                <TableContainer component={Paper}>
+                    <Table sx={{minWidth: 650}} aria-label="customized table">
+                        <TableHead>
+                            {apiResponse2.map((row, i) => (
+                                <TableRow
+                                    key={i}
+                                    sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                                >
+                                    <TableCell component="th" scope="row">
+                                        {'Number of people vaccinated at: '+apiResponse2[i].cityName}
+                                    </TableCell>
+                                    <TableCell align="right">{apiResponse2[i].healthyPop}</TableCell>
+                                </TableRow>
+                                ))}
+                                </TableHead>
+                                </Table>
+                                </TableContainer>
+
+                <br/>
+                <br/>
+                <TableContainer component={Paper}>
+                    <Table sx={{minWidth: 650}} aria-label="customized table">
+                        <TableHead>
+                            {apiResponse3.map((row, i) => (
+                                <TableRow
+                                    key={i}
+                                    sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                                >
+                                    <TableCell component="th" scope="row">
+                                        {'Total Number of Covid Cases At: '+document.getElementById('txt').value}
+                                    </TableCell>
+                                    <TableCell align="right">{apiResponse3[i].sumCases}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableHead>
+                    </Table>
+                </TableContainer>
+
+                <br/>
 
 
-    </ListItem>
-      </List>
-    )
+
+
+<br/>
+<label>OutBreak Districts in City</label>
+            <TableContainer component={Paper}>
+                <Table sx={{minWidth: 650}} aria-label="customized table">
+                    <TableHead>
+                        <TableRow>
+
+                            <TableCell>outbreakDistrict</TableCell>
+                            <TableCell align="right">numPeople</TableCell>
+                            <TableCell align="right">numCases</TableCell>
+                            <TableCell align="right">numResolved</TableCell>
+                            <TableCell align="right">numRecovered</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {apiResponse.map((row, i) => (
+                            <TableRow
+                                key={i}
+                                sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                            >
+                                <TableCell component="th" scope="row">
+                                    {apiResponse[i].outbreakDistrict}
+                                </TableCell>
+                                <TableCell align="right">{apiResponse[i].numPeople}</TableCell>
+                                <TableCell align="right">{apiResponse[i].numCases}</TableCell>
+                                <TableCell align="right">{apiResponse[i].numResolved}</TableCell>
+                                <TableCell align="right">{apiResponse[i].numRecovered}</TableCell>
+                            </TableRow>
+                        )
+                        )}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+            </div>
+        )
+
 }
-
 export default Covid
