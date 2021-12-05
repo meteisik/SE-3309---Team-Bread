@@ -101,6 +101,54 @@ router.get("/getClinics", function(req, res, next) {
     
 });
 
+router.get("/cities", function(req, res, next) {
+    let conn=newConnection();
+    conn.connect();
+        
+    conn.query("SELECT cityName FROM city",(err,row,fields)=>{
+    if(err){ 
+        console.log(err);
+        }
+        else{
+            let allData={};
+
+            for(r in row){
+                allData[r]=row[r];
+            }
+
+            res.send(JSON.stringify(allData));
+            console.log(row[0])
+        }
+    });
+    conn.end();
+});
+
+router.get("/vaccineClinics", function(req, res, next) {
+    let conn=newConnection();
+    conn.connect();
+        
+    conn.query( "SELECT ci.cityName, cl.address FROM healthcarecentre h, vaccineClinic cl, city ci" +
+                "WHERE h.address = cl.address AND ci.cityName = \"Olds \" AND h.UNLOCode = (SELECT UNLOCode FROM City" +
+                "WHERE cityName = \"Olds \""
+    ,(err,row,fields)=>{
+    if(err){ 
+        console.log(err);
+        }
+        else{
+            let allData={};
+
+            for(r in row){
+                allData[r]=row[r];
+            }
+
+            res.send(JSON.stringify(allData));
+            console.log(row[0])
+        }
+    });
+    conn.end();
+    
+});
+
 
 
 module.exports = router;
