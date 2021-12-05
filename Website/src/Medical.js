@@ -3,7 +3,7 @@ import { Typography } from '@mui/material'
 
 import Table from "./Components/Tables/Table"
 
-import Table from "./Table"
+//import Table from "./Table"
 
 
 
