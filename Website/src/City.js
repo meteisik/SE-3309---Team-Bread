@@ -1,25 +1,21 @@
 import React, { useState,useEffect } from 'react'
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { CardHeader } from '@mui/material';
-import List  from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import logo from './kermit.jpg';
-import logo2 from './Trig.jpg';
-import TableBody from "@mui/material/TableBody";
-import TableContainer from "@mui/material/TableContainer";
+import TableCity1 from "./Components/Tables/TableCity1"
+import TableCity2 from "./Components/Tables/TableCity2"
+import TableCity3 from "./Components/Tables/TableCity3"
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Container from "@mui/material/Container";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import Divider from "@mui/material/Divider";
+import Grow from "@mui/material/Grow";
 import Table from "@mui/material/Table";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import TableCell from "@mui/material/TableCell";
-import Paper from "@mui/material/Paper";
-import Output from './Output.json';
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
+
 const Covid=()=> {//sets the react hooks
+
+
     const [apiResponse, setResponse] = useState([]);
     const [apiResponse2, setResponse2] = useState([]);
     const [apiResponse3, setResponse3] = useState([]);
@@ -53,87 +49,69 @@ const Covid=()=> {//sets the react hooks
 //tables and html are built below 
         return (
 
-            <div>
-                <input type={'text'} id={'txt'}></input><br/>
-                <button onClick={componentDidMount}>submit query</button>
-                <br/>
-                <TableContainer component={Paper}>
-                    <Table sx={{minWidth: 650}} aria-label="customized table">
-                        <TableHead>
-                            {apiResponse2.map((row, i) => (
-                                <TableRow
-                                    key={i}
-                                    sx={{'&:last-child td, &:last-child th': {border: 0}}}
-                                >
-                                    <TableCell component="th" scope="row">
-                                        {'Number of people vaccinated at: '+apiResponse2[i].cityName}
-                                    </TableCell>
-                                    <TableCell align="right">{apiResponse2[i].healthyPop}</TableCell>
-                                </TableRow>
-                                ))}
-                                </TableHead>
-                                </Table>
-                                </TableContainer>
+            <Box >
 
-                <br/>
-                <br/>
-                <TableContainer component={Paper}>
-                    <Table sx={{minWidth: 650}} aria-label="customized table">
-                        <TableHead>
-                            {apiResponse3.map((row, i) => (
-                                <TableRow
-                                    key={i}
-                                    sx={{'&:last-child td, &:last-child th': {border: 0}}}
-                                >
-                                    <TableCell component="th" scope="row">
-                                        {'Total Number of Covid Cases At: '+document.getElementById('txt').value}
-                                    </TableCell>
-                                    <TableCell align="right">{apiResponse3[i].sumCases}</TableCell>
-                                </TableRow>
-                            ))}
-                        </TableHead>
-                    </Table>
-                </TableContainer>
-
-                <br/>
+                <Grid container spacing={1}>
 
 
+                    <Grid item xs={1} >
+                        <Box sx={{ bgcolor: '#ff9800', height: '100vh' }} />
+
+                    </Grid>
+
+                    <Grid item xs={10}>
+                        <Container >
+                            <List>
+
+                                <ListItem >
+
+                                    <Table  style={{ width: 500  }}   />
+                                    <input type={'text'} id={'txt'}></input><br/>
+                                    <button onClick={componentDidMount}>submit query</button>
+
+                                </ListItem>
+                                <Divider light />
+
+                                <ListItem>
+                                    <TableCity3 apiResponses3={apiResponse3}/>
+
+                                </ListItem>
+                                <Divider light />
+                                <ListItem>
 
 
-<br/>
-<label>OutBreak Districts in City</label>
-            <TableContainer component={Paper}>
-                <Table sx={{minWidth: 650}} aria-label="customized table">
-                    <TableHead>
-                        <TableRow>
+                                    <TableCity2 apiResponses2={apiResponse2}/>
 
-                            <TableCell>outbreakDistrict</TableCell>
-                            <TableCell align="right">numPeople</TableCell>
-                            <TableCell align="right">numCases</TableCell>
-                            <TableCell align="right">numResolved</TableCell>
-                            <TableCell align="right">numRecovered</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {apiResponse.map((row, i) => (
-                            <TableRow
-                                key={i}
-                                sx={{'&:last-child td, &:last-child th': {border: 0}}}
-                            >
-                                <TableCell component="th" scope="row">
-                                    {apiResponse[i].outbreakDistrict}
-                                </TableCell>
-                                <TableCell align="right">{apiResponse[i].numPeople}</TableCell>
-                                <TableCell align="right">{apiResponse[i].numCases}</TableCell>
-                                <TableCell align="right">{apiResponse[i].numResolved}</TableCell>
-                                <TableCell align="right">{apiResponse[i].numRecovered}</TableCell>
-                            </TableRow>
-                        )
-                        )}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            </div>
+                                </ListItem>
+
+                                <Divider light />
+
+                                <ListItem>
+                                    <Box sx={{ height: 180 }}>
+                                        <label>OutBreak Districts in City</label>
+                                        <TableCity1 apiResponses={apiResponse} style={{ width: 700 }} />
+
+                                    </Box>
+                                </ListItem>
+
+                            </List>
+
+
+
+                        </Container>
+                    </Grid>
+
+
+
+                    <Grid item xs ={1}>
+                        <Box sx={{ bgcolor: '#ff9800', height: '100vh' }} />
+                    </Grid>
+
+
+
+                </Grid>
+            </Box>
+
         )
 
 }
