@@ -156,6 +156,48 @@ router.post("/vaccineClinics", function(req, res, next) {
     
 });
 
+router.post("/appointmentTable", function(req, res, next) {
+
+    let appointmentInfo = req.body.AppointmentInfo;
+    hcId = appointmentInfo.healthCardId;
+    address = appointmentInfo.address;
+    date = appointmentInfo.date;
+    console.log(hcId);
+    console.log(address);
+    console.log(date);
+
+    
+
+    let conn=newConnection();
+    conn.connect();
+
+    conn.query(`INSERT INTO vaccineAppointment
+    VALUES ("${date}","${address}")`);
+
+    conn.query(`INSERT INTO registration
+    VALUES ("${hcId}","${date}")`);
+
+    let queryStatement = `SELECT p.personName, v.injectionDate, v.address From Person p, vaccineappointment v
+                WHERE p.healthCardId = "${hcId}" AND v.address = "${address}" AND v.injectionDate = "${date}"`;
+
+    conn.query(queryStatement,(err,row,fields)=>{
+    if(err){ 
+        }
+        else{
+            let allData={};
+
+            for(r in row){
+                allData[r]=row[r];
+            }
+
+            res.send(JSON.stringify(row));
+        }
+    });
+    conn.end();
+});
+
+
+
 
 
 module.exports = router;

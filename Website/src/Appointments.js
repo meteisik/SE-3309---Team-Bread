@@ -14,7 +14,12 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Container from '@mui/material/Container'
-
+import TableBody from "@mui/material/TableBody";
+import TableContainer from "@mui/material/TableContainer";
+import Table from "@mui/material/Table";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import TableCell from "@mui/material/TableCell";
 
 
 
@@ -88,26 +93,55 @@ function Appointments() {
         padding: theme.spacing(1),
         textAlign: 'center',
         color: theme.palette.text.secondary,
-      }));
+    }));
 
+    //------------------------------------------------------------------------------------------------------
+
+    const[apiAppointmentResponse, setAppointmentResponse] = React.useState([]);
+
+    function createAppointment(){
+
+        let hcID = document.getElementById('healthcardID').value;
+        let date = document.getElementById('date').value;
+
+        let AppointmentInfo = {
+            healthCardId : hcID,
+            address : clinicAddress,
+            date: date
+        }
+        alert(JSON.stringify(AppointmentInfo));
+
+        const requestOptions = {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({AppointmentInfo})
+        };
+        
+        fetch("http://localhost:9000/testAPI/appointmentTable", requestOptions)
+            .then(res => res.text())
+            .then(res => setAppointmentResponse(JSON.parse(res)));
+
+    }
 
     //-------------------------------------------------------------------------------------------------------
 
     return (
     <React.Fragment>
-    <button onClick={getCitiesFromDB}>load cities</button>
 
 
 <Box >
       <Grid container spacing={1}>
         <Grid item xs={2}>
         
-        <Box sx={{ bgcolor: '#ffb851', height: '100vh' }} />
+        <Box sx={{ bgcolor: '#ffb851', height: '140vh' }} />
    
         </Grid>
         <Grid item xs={8}>
         <Container >
         <List>
+        <ListItem>
+        <button onClick={getCitiesFromDB}>load cities</button>
+        </ListItem>
         <ListItem>
             <Typography variant = "h4" gutterBottom>
             Vaccine Appointment Booking
@@ -121,6 +155,7 @@ function Appointments() {
             an healthcard id to receive your booking confirmation. Please enter your booking information below:
             </Typography>
         </ListItem>
+        <Divider/>
         <ListItem>Select a city to book your vaccine:
             <Autocomplete
             value={cityValue}
@@ -167,25 +202,57 @@ function Appointments() {
         <ListItem>Please enter a valid healthcard id: 
             <TextField
                 required
-                id="outlined-required"
+                id="healthcardID"
                 label="Required"
             />
         </ListItem>
         <ListItem>Please enter a valid vaccine date (form: YYYY-MM-DD):
             <TextField
                 required
-                id="outlined-required"
+                id="date"
                 label="Required"
             />
         </ListItem>
         <ListItem>
-            <Button>Submit</Button>
+            <Button onClick={createAppointment}>Submit</Button>
+        </ListItem>
+        <Divider />
+        <ListItem>
+        <Typography variant = "h6" gutterBottom>
+            Your Vaccine Appointment:
+        </Typography>
+        </ListItem>
+        <ListItem>
+            <TableContainer component={Paper}>
+                <Table sx={{minWidth: 650}} aria-label="customized table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell align="right">Name</TableCell>
+                            <TableCell align="right">Date</TableCell>
+                            <TableCell align="right">Address</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {apiAppointmentResponse.map((row, i) => (
+                            <TableRow
+                                key={i}
+                                sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                            >
+                                <TableCell align="right">{apiAppointmentResponse[i].personName}</TableCell>
+                                <TableCell align="right">{apiAppointmentResponse[i].injectionDate}</TableCell>
+                                <TableCell align="right">{apiAppointmentResponse[i].address}</TableCell>
+                            </TableRow>
+                        )
+                        )}
+                    </TableBody>
+                </Table>
+            </TableContainer>
         </ListItem>
         </List>
       </Container>
         </Grid>
         <Grid item xs ={2}>
-        <Box sx={{ bgcolor: '#ffb851', height: '100vh' }} />
+        <Box sx={{ bgcolor: '#ffb851', height: '140vh' }} />
         </Grid>
       </Grid>
     </Box>
