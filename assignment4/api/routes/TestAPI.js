@@ -1,6 +1,8 @@
 var express = require("express");
 var router = express.Router();
 const newConnection=require('./DBConnection');
+const mysql=require('mysql');
+
 
 router.get("/", function(req, res, next) {
     
@@ -101,13 +103,14 @@ router.get("/getClinics", function(req, res, next) {
     
 });
 
+
+//##################################  FOR APPOINTMENTS PAGE  #######################################
 router.get("/cities", function(req, res, next) {
     let conn=newConnection();
     conn.connect();
         
     conn.query("SELECT cityName FROM city",(err,row,fields)=>{
     if(err){ 
-        console.log(err);
         }
         else{
             let allData={};
@@ -116,21 +119,26 @@ router.get("/cities", function(req, res, next) {
                 allData[r]=row[r];
             }
 
-            res.send(JSON.stringify(allData));
-            console.log(row[0])
+            res.send(JSON.stringify(row));
         }
     });
     conn.end();
 });
 
-router.get("/vaccineClinics", function(req, res, next) {
+router.post("/vaccineClinics", function(req, res, next) {
+
+    let cities = req.body.cityVal;
+    console.log(req.body.cityVal);
+    console.log(cities);
+
     let conn=newConnection();
     conn.connect();
         
-    conn.query( "SELECT ci.cityName, cl.address FROM healthcarecentre h, vaccineClinic cl, city ci" +
-                "WHERE h.address = cl.address AND ci.cityName = \"Olds \" AND h.UNLOCode = (SELECT UNLOCode FROM City" +
-                "WHERE cityName = \"Olds \""
-    ,(err,row,fields)=>{
+    let queryStatement = `SELECT clinicName, c.address FROM healthcarecentre h, vaccineClinic c
+                WHERE h.address = c.address AND h.UNLOCode = (SELECT UNLOCode FROM City
+                WHERE cityName = ` + mysql.escape(cities) + `)`;
+    
+    conn.query(queryStatement,(err,row,fields)=>{
     if(err){ 
         console.log(err);
         }
@@ -141,8 +149,7 @@ router.get("/vaccineClinics", function(req, res, next) {
                 allData[r]=row[r];
             }
 
-            res.send(JSON.stringify(allData));
-            console.log(row[0])
+            res.send(JSON.stringify(row));
         }
     });
     conn.end();
