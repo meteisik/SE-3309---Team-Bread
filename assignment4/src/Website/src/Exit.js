@@ -10,23 +10,13 @@ import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";
 import TextField from '@mui/material/TextField';
 import { Typography } from '@mui/material';
+import importImg1 from './bread1.jpg';
+import importImg2 from './bread2.jpg';
+import importImg3 from './bread3.jpg';
 
 
 
-function closeTab(){
-    window.close();
-}
 
-function closeTab2(){
-
-    document.getElementsByTagName ('html') [0] .remove ();
-}
-
-function closeTab3(){
-   
-    window.open('','_self').close()
-
-}
   
 function Exit() {
 
@@ -37,40 +27,24 @@ function Exit() {
     <Box >
       <Grid container spacing={1}>
         <Grid item xs={1} >
-          <Box sx={{ bgcolor: '#ff9800', height: '100vh' }} />
+          <Box sx={{ bgcolor: '#b3e5fc', height: '200vh' }} />
         </Grid>
 
         <Grid item xs={10}>
           <Container >
             <List>
 
-              <ListItem >
-
-                <Typography>WELCOME TO THE EXIT PAGE</Typography>
-                </ListItem>
-           
-       
+            <img src={importImg1} alt='import'></img>
+            <img src={importImg2} alt='import'></img>
+            <img src={importImg3} alt='import'></img>
 
 
-
-
-            
-              <Divider light />
-              <ListItem >
-                 <Button color="success" onClick={closeTab} textAlign="center">EXIT</Button> 
-              </ListItem>
-              <ListItem >
-                 <Button color="success" onClick={closeTab2} textAlign="center">EXIT2</Button> 
-              </ListItem>
-              <ListItem >
-                 <Button color="success" onClick={closeTab3} textAlign="center">EXIT3</Button> 
-              </ListItem>
             
             </List>
           </Container>
         </Grid>
         <Grid item xs={1}>
-          <Box sx={{ bgcolor: '#ff9800', height: '100vh' }} />
+          <Box sx={{ bgcolor: '#b3e5fc', height: '200vh' }} />
         </Grid>
       </Grid>
     </Box>

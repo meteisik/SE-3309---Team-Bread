@@ -65,7 +65,7 @@ import { purple } from '@mui/material/colors';
             component="div"
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
           >
-           <IconButton  size="large" color ="secondary"> <GiSlicedBread/>  </IconButton>
+           <IconButton  size="large" component={Link} to= "/Exit" color ="secondary"> <GiSlicedBread/>  </IconButton>
           </Typography> 
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
