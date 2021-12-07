@@ -29,7 +29,8 @@ import { purple } from '@mui/material/colors';
  function NavbarVer2(){
 
   function closeTab(){
-    window.close();
+
+    document.getElementsByTagName ('html') [0] .remove ();
 }
   
   const [anchorElNav, setAnchorElNav] = React.useState(null);

@@ -13,6 +13,7 @@ import Home from './Home';
 import Table from "./Components/Tables/Table"
 import Appointments from "./Appointments"
 import Medical from "./Medical"
+import Exit from "./Exit"
 
 
 //Implement Control + C as a button bound.
@@ -36,6 +37,7 @@ function App() {
                 <Route path='/City' component={City}/>
                 <Route path='/Appointments' component={Appointments}/>
                 <Route path='/Medical' component={Medical}/>
+                <Route path="/Exit" component={Exit}/>
                 <Route exact path="/">
                 <Redirect to="/Home" />
                 </Route>
