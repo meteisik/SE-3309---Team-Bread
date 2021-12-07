@@ -179,18 +179,13 @@ import { purple } from '@mui/material/colors';
           <MenuItem  onClick={handleCloseNavMenu}>
 
 
-<Button textAlign="center">ADMIN</Button>
 
 
 </MenuItem>
-<MenuItem  onClick={handleCloseNavMenu}>
 
 
-<Button textAlign="center">PUBLIC</Button>
 
 
-</MenuItem>
-<Divider/>
 <MenuItem  onClick={handleCloseNavMenu}>
 
 
