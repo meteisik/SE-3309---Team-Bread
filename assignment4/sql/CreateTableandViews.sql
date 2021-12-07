@@ -172,4 +172,23 @@ CREATE TABLE CovidVarient(
 	AS SELECT *
     FROM Person
     WHERE vaccinedStatus = 'Not Vaccinated';
+
+    Create view HCCInfo(address,cityName,spotName)
+    AS select hcc.address, c.cityName, v.spotName from healthcarecentre as hcc 
+        JOIN city as c ON hcc.UNLOCode=c.UNLOCode Left Join (select clinicName as spotName, address from vaccineclinic  
+        UNION select hospitalName, address from hospital) as v on v.address=hcc.address;
+
+    Create view clinicInfo(address,clinicName,cityName)
+    AS SELECT v.address, v.clinicName,c.cityName  FROM vaccineclinic AS v
+            JOIN healthcarecentre AS hcc
+            ON v.address=hcc.address
+            JOIN city AS c
+            ON hcc.UNLOCode=c.UNLOCode; 
+            
+    Create view hospitalInfo(address,hospitalName,bedsAvailable,numOfCovidCases,cityName)
+    AS SELECT h.address, h.hospitalName, h.bedsAvailable,h.numOfCovidCases,c.cityName  FROM hospital AS h
+        JOIN healthcarecentre AS hcc
+        ON h.address=hcc.address
+        JOIN city AS c
+        ON hcc.UNLOCode=c.UNLOCode;
     
