@@ -101,7 +101,7 @@ else{//Post request headers
 
 
                     <Grid item xs={1} >
-                        <Box sx={{ bgcolor: '#ff9800', height: '100vh' }} />
+                        <Box sx={{ bgcolor: '#b3e5fc', height: '100vh' }} />
 
                     </Grid>
 
@@ -167,7 +167,7 @@ else{//Post request headers
 
 
                     <Grid item xs ={1}>
-                        <Box sx={{ bgcolor: '#ff9800', height: '100vh' }} />
+                        <Box sx={{ bgcolor: '#b3e5fc', height: '100vh' }} />
                     </Grid>
 
 
