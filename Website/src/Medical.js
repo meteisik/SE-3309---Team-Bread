@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react'
 import HospitalTable from "./Components/Tables/HospitalTable.js"
 import HealthCareCentreTable from "./Components/Tables/HealthCareCentreTable"
 import VaccineClinicTable from "./Components/Tables/VaccineClinicTable"
+import AverageStaffTables from "./Components/Tables/AverageStaffTable"
 
+
+import Autocomplete from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -11,11 +14,12 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";
 import TextField from '@mui/material/TextField';
+
 function Tables(props) {
   const tableNum = props.tableState;
-  if (tableNum == 0) {
+  if (tableNum === 0) {
     return <HealthCareCentreTable HCC={props.apiTable}></HealthCareCentreTable>;
-  } else if (tableNum == 1) {
+  } else if (tableNum === 1) {
     return <VaccineClinicTable clinicArray={props.apiTable}></VaccineClinicTable>
   } else {
     return <HospitalTable hospitalArray={props.apiTable}></HospitalTable>;
@@ -28,13 +32,23 @@ function Medical() {
   const [apiResponse, setResponse] = useState([]);
   const [tableState, setTableState] = useState(0);
   const [cityNameState, setCityState] = useState('');
+  const [averageState, setAverageState] = useState([]);
+  
+  
 
   useEffect(() => {
     getDefaultTable();
+    getAverageTable();
   }, []);
 
+  function getAverageTable() {
+    fetch("http://localhost:9000/testAPI/AverageStaff" )
+        .then(res => res.text())
+        .then(res => setAverageState(JSON.parse(res)));
+
+  }
   function getDefaultTable() {
-    fetch("http://localhost:9000/testAPI/initializeTables" + cityNameState)
+    fetch("http://localhost:9000/testAPI/initializeTables" )
         .then(res => res.text())
         .then(res => setResponse(JSON.parse(res)));
 
@@ -59,15 +73,13 @@ function Medical() {
         .then(res => res.text())
         .then(res => setResponse(JSON.parse(res)));
   }
-  
-
   function getHCCByCity() {
-    if (tableState == 0) {
+    if (tableState === 0) {
       fetch("http://localhost:9000/testAPI/getHealthCentres?city=" + cityNameState)
         .then(res => res.text())
         .then(res => setResponse(JSON.parse(res)));
 
-    } else if (tableState == 1) {
+    } else if (tableState === 1) {
       fetch("http://localhost:9000/testAPI/getClinics?city=" + cityNameState)
         .then(res => res.text())
         .then(res => setResponse(JSON.parse(res)));
@@ -79,6 +91,9 @@ function Medical() {
 
     }
   }
+
+  
+  
   return (
 
 
@@ -105,11 +120,10 @@ function Medical() {
               </ListItem>
               <Divider light />
               <ListItem >
-                Add or remove healthcare centres:
-                <TextField
-                  label="healthcare centre"
-                />
-                <Button>Submit</Button>
+                <h3>Vaccine clinics with more than average employees</h3>
+              </ListItem>
+              <ListItem >
+                <AverageStaffTables  Average={averageState}></AverageStaffTables>
               </ListItem>
               <Divider light />
               <ListItem >
@@ -122,6 +136,9 @@ function Medical() {
                 <Button onClick={getHCCByCity}>Submit</Button>
               </ListItem>
               <Divider light />
+              <ListItem >
+                <h3>HealthCare Centres</h3>
+              </ListItem>
               <ListItem>
                 <Tables tableState={tableState} apiTable={apiResponse}></Tables>
               </ListItem>
