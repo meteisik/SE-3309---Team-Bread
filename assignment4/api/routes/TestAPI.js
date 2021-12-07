@@ -364,6 +364,56 @@ router.post("/appointmentTable", function(req, res, next) {
     conn.end();
 });
 
+router.post("/deleteAppointment", function(req, res, next) {
+
+    let appointmentInfo = req.body.AppointmentInfo;
+    hcId = appointmentInfo.healthCardId;
+    address = appointmentInfo.address;
+    date = appointmentInfo.date;
+    console.log(hcId);
+    console.log(address);
+    console.log(date);
+
+    
+
+    let conn=newConnection();
+    conn.connect();
+
+    conn.query(`DELETE FROM registration
+    WHERE healthCardId = "${hcId}" AND registrationDate = "${date}"`,(err,row,fields)=>{
+        if(err){
+            console.log(err);
+            }
+            
+        });
+
+    conn.query(`DELETE FROM vaccineAppointment
+    WHERE injectionDate = "${date}" AND address = "${address}"`,(err,row,fields)=>{
+        if(err){
+            console.log(err);
+            }
+            
+        });
+
+    let queryStatement = `SELECT p.personName, v.injectionDate, v.address From Person p, vaccineappointment v
+                WHERE p.healthCardId = "${hcId}" AND v.address = "${address}" AND v.injectionDate = "${date}"`;
+
+    conn.query(queryStatement,(err,row,fields)=>{
+    if(err){ 
+        }
+        else{
+            let allData={};
+
+            for(r in row){
+                allData[r]=row[r];
+            }
+
+            res.send(JSON.stringify(row));
+        }
+    });
+    conn.end();
+});
+
 
 
 

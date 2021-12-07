@@ -4,7 +4,7 @@ function newConnection(){
 let conn = mysql.createConnection({ 
     host:'localhost',
     user:'root',
-    password:'root',
+    password:'rootuser1!',
     database:'covid',
     port:3306
 });

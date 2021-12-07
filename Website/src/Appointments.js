@@ -134,6 +134,24 @@ function Appointments() {
     function modifyAppointment(){
         setDisabled(true);
         
+        let hcID = document.getElementById('healthcardID').value;
+        let date = document.getElementById('date').value;
+
+        let AppointmentInfo = {
+            healthCardId : hcID,
+            address : clinicAddress,
+            date: date
+        }
+
+        const requestOptions = {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({AppointmentInfo})
+        };
+
+        fetch("http://localhost:9000/testAPI/deleteAppointment", requestOptions)
+            .then(res => res.text())
+            .then(res => setAppointmentResponse(JSON.parse(res)));
         
     }
 
