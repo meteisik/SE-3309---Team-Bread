@@ -100,7 +100,7 @@ function Medical() {
     <Box >
       <Grid container spacing={1}>
         <Grid item xs={1} >
-          <Box sx={{ bgcolor: '#ff9800', height: '100vh' }} />
+          <Box sx={{ bgcolor: '#b3e5fc', height: '100vh' }} />
         </Grid>
 
         <Grid item xs={10}>
@@ -146,7 +146,7 @@ function Medical() {
           </Container>
         </Grid>
         <Grid item xs={1}>
-          <Box sx={{ bgcolor: '#ff9800', height: '100vh' }} />
+          <Box sx={{ bgcolor: '#b3e5fc', height: '100vh' }} />
         </Grid>
       </Grid>
     </Box>

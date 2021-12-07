@@ -60,7 +60,7 @@ const Covid=()=> {//sets the react hooks
 
 
                     <Grid item xs={1} >
-                        <Box sx={{ bgcolor: '#ff9800', height: '100vh' }} />
+                        <Box sx={{ bgcolor: '#b3e5fc', height: '100vh' }} />
 
                     </Grid>
 
@@ -112,7 +112,7 @@ const Covid=()=> {//sets the react hooks
 
 
                     <Grid item xs ={1}>
-                        <Box sx={{ bgcolor: '#ff9800', height: '100vh' }} />
+                        <Box sx={{ bgcolor: '#b3e5fc', height: '100vh' }} />
                     </Grid>
 
 

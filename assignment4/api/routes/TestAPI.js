@@ -330,10 +330,20 @@ router.post("/appointmentTable", function(req, res, next) {
     conn.connect();
 
     conn.query(`INSERT INTO vaccineAppointment
-    VALUES ("${date}","${address}")`);
+    VALUES ("${date}","${address}")`,(err,row,fields)=>{
+        if(err){
+            console.log(err);
+            }
+            
+        });
 
     conn.query(`INSERT INTO registration
-    VALUES ("${hcId}","${date}")`);
+    VALUES ("${hcId}","${date}")`,(err,row,fields)=>{
+        if(err){
+            console.log(err);
+            }
+            
+        });
 
     let queryStatement = `SELECT p.personName, v.injectionDate, v.address From Person p, vaccineappointment v
                 WHERE p.healthCardId = "${hcId}" AND v.address = "${address}" AND v.injectionDate = "${date}"`;

@@ -7,12 +7,14 @@ import Navbar from './Navbar';
 import NavbarVer2 from './NavbarVer2';
 import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import City from './City';
 import Home from './Home';
 import Table from "./Components/Tables/Table"
 import Appointments from "./Appointments"
 import Medical from "./Medical"
+
+
 //Implement Control + C as a button bound.
 
 
@@ -34,6 +36,11 @@ function App() {
                 <Route path='/City' component={City}/>
                 <Route path='/Appointments' component={Appointments}/>
                 <Route path='/Medical' component={Medical}/>
+                <Route exact path="/">
+                <Redirect to="/Home" />
+                </Route>
+
+
 
       </Switch>
 

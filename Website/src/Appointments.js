@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Divider, Grid, Typography } from '@mui/material'
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -22,8 +22,11 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 
 
-
 function Appointments() {
+
+    useEffect(() => {
+        getCitiesFromDB();
+      }, []);
 
     //Get cities
     const [apiCityResponse, setCityResponse] = React.useState([]);
@@ -99,8 +102,12 @@ function Appointments() {
 
     const[apiAppointmentResponse, setAppointmentResponse] = React.useState([]);
 
+    const[disabled, setDisabled] = React.useState(true);
+
     function createAppointment(){
 
+        setDisabled(false);
+    
         let hcID = document.getElementById('healthcardID').value;
         let date = document.getElementById('date').value;
 
@@ -109,7 +116,6 @@ function Appointments() {
             address : clinicAddress,
             date: date
         }
-        alert(JSON.stringify(AppointmentInfo));
 
         const requestOptions = {
             method: "POST",
@@ -120,7 +126,15 @@ function Appointments() {
         fetch("http://localhost:9000/testAPI/appointmentTable", requestOptions)
             .then(res => res.text())
             .then(res => setAppointmentResponse(JSON.parse(res)));
+    }
+    
 
+    //------------------------------------------------------------------------------------------------------
+
+    function modifyAppointment(){
+        setDisabled(true);
+        
+        
     }
 
     //-------------------------------------------------------------------------------------------------------
@@ -133,15 +147,13 @@ function Appointments() {
       <Grid container spacing={1}>
         <Grid item xs={2}>
         
-        <Box sx={{ bgcolor: '#ffb851', height: '140vh' }} />
+        <Box sx={{ bgcolor: '#b3e5fc', height: '140vh' }} />
    
         </Grid>
         <Grid item xs={8}>
         <Container >
         <List>
-        <ListItem>
-        <button onClick={getCitiesFromDB}>load cities</button>
-        </ListItem>
+        
         <ListItem>
             <Typography variant = "h4" gutterBottom>
             Vaccine Appointment Booking
@@ -158,6 +170,7 @@ function Appointments() {
         <Divider/>
         <ListItem>Select a city to book your vaccine:
             <Autocomplete
+            renderInput={getCitiesFromDB}
             value={cityValue}
             onChange={(event, newValue) => {
             setCityValue(newValue);
@@ -170,7 +183,6 @@ function Appointments() {
             disablePortal
             xs = {4}
             id="combo-box-demo"
-            //options={apiCityResponse.split(",")}
             options={formatCities().split("*")}
             sx={{ width: 300 }}
             renderInput={(params) => <TextField {...params} label="cities" />}
@@ -216,6 +228,9 @@ function Appointments() {
         <ListItem>
             <Button onClick={createAppointment}>Submit</Button>
         </ListItem>
+        <ListItem>
+            <Button id="modify" disabled={disabled} onClick={modifyAppointment}>Delete Appointment</Button>
+        </ListItem>
         <Divider />
         <ListItem>
         <Typography variant = "h6" gutterBottom>
@@ -252,10 +267,11 @@ function Appointments() {
       </Container>
         </Grid>
         <Grid item xs ={2}>
-        <Box sx={{ bgcolor: '#ffb851', height: '140vh' }} />
+        <Box sx={{ bgcolor: '#b3e5fc', height: '140vh' }} />
         </Grid>
       </Grid>
     </Box>
+     
     </React.Fragment>
     )
 }

@@ -26,7 +26,7 @@ import { purple } from '@mui/material/colors';
 
 
 
-const NavbarVer2 = () => {
+ function NavbarVer2(){
 
   function closeTab(){
     window.close();
