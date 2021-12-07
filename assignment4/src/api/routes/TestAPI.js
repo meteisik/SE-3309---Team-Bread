@@ -244,9 +244,10 @@ router.get("/AverageStaff", function(req, res, next) {
         conn.connect();
             
         conn.query(`SELECT address, clinicName, 
-        clinicStaffTotal-(SELECT AVG(clinicStaffTotal) FROM VaccineClinic) AS cStaffDif
+        clinicStaffTotal-ROUND((SELECT AVG(clinicStaffTotal) FROM VaccineClinic)) AS cStaffDif
         FROM VaccineClinic
-        WHERE clinicStaffTotal >(SELECT AVG(clinicStaffTotal) FROM VaccineClinic);`,(err,row,fields)=>{
+        WHERE clinicStaffTotal >(SELECT AVG(clinicStaffTotal) FROM VaccineClinic)
+        ORDER BY cStaffDif DESC;`,(err,row,fields)=>{
         if(err){ 
             console.log(err);
             }
