@@ -77,7 +77,87 @@ router.post('/vaccinatedincities',function (req,res,next){
 
 
 } );
+router.post('/cityPopGet',function (req,res,next){
 
+    let cities=req.body.cities
+    console.log(cities);
+    let conn=newConnection();
+    conn.connect();
+    let preparedStatement=`SELECT cityName, population 
+                            FROM City
+                            WHERE cityName=`+mysql.escape(cities);
+
+    conn.query(preparedStatement,(err,row,fields)=>{
+        if(err){
+            console.log(err);
+        }
+        else{
+            let allData={};
+
+            for(r in row){
+                allData[r]=row[r];
+            }
+
+            res.send(JSON.stringify(row));
+            console.log(row[0])
+        }
+    });
+    conn.end();
+
+
+
+
+} );
+router.post('/populationChange',function (req,res,next){
+//this is a city population data mod, takes the post request and sends it to the database
+    let cities='CA  '+req.body.cities+' ';
+    let population=req.body.population;
+    console.log(cities);
+    console.log(population);
+    let x=parseInt(population)
+
+
+
+    let conn=newConnection();
+    conn.connect();
+    let preparedStatement=`SELECT cityName, population 
+                            FROM City
+                            WHERE UNLOCode=`+mysql.escape(cities);
+
+
+    let preparedStatement2=`UPDATE city 
+                            SET population= `+mysql.escape(population)
+                            +`WHERE UNLOCode =`+mysql.escape(cities);
+
+
+    conn.query(preparedStatement2,(err,row,fields)=>{
+        if(err){
+            console.log(err);
+        }
+        else{
+            console.log(row[0])
+        }
+    });
+
+    conn.query(preparedStatement,(err,row,fields)=>{
+        if(err){
+            console.log(err);
+        }
+        else{
+            let allData={};
+
+            for(r in row){
+                allData[r]=row[r];
+            }
+
+            res.send(JSON.stringify(row));
+            console.log(row[0])
+        }
+    });
+
+    conn.end();
+
+} );
 
 router.post('/totalCasesinCity',function (req,res,next){
     let cities=req.body.cities

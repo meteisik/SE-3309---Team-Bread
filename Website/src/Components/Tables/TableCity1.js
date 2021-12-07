@@ -7,16 +7,21 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Output from '../../Output.json';
+import Grid from "@mui/material/Grid";
 
 export default function Citytable1(props){
 
 
 
-
+//table
         return(
 
-            <TableContainer component={Paper}>
-                <Table sx={{minWidth: 800}} aria-label="customized table"  >
+            <TableContainer component={Paper} style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                display:'flex'
+            }} >
+                <Table sx={{minWidth: 650}} aria-label="customized table"  >
                     <TableHead>
                         <TableRow>
 

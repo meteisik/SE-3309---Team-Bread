@@ -10,7 +10,7 @@ import Output from '../../Output.json';
 
 export default function Citytable2(props) {
 
-
+//table
     return (
         <TableContainer component={Paper}>
             <Table sx={{minWidth: 650}} aria-label="customized table">
