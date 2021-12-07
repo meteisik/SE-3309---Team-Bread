@@ -12,6 +12,7 @@ import Grow from "@mui/material/Grow";
 import Table from "@mui/material/Table";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
+import Button from "@mui/material/Button";
 
 const Covid=()=> {//sets the react hooks
 
@@ -66,9 +67,9 @@ const Covid=()=> {//sets the react hooks
                                 <ListItem >
 
                                     <Table  style={{ width: 500  }}   />
-                                    <input type={'text'} id={'txt'}></input><br/>
                                     <label>Enter In a City Name</label>
-                                    <button onClick={componentDidMount}>submit query</button>
+                                    <input type={'text'} id={'txt'}></input><br/>
+                                    <Button onClick={componentDidMount}>submit query</Button>
 
                                 </ListItem>
                                 <Divider light />
