@@ -24,8 +24,11 @@ import TableCell from "@mui/material/TableCell";
 
 function Appointments() {
 
+//------------------------- FUNCTIONS USED FOR RETRIEVING, FORMATTING DISPLAYING CITIES ------------------------------------------------------------
+
     useEffect(() => {
         getCitiesFromDB();
+        //getAppointmentsFromDB();
       }, []);
 
     //Get cities
@@ -50,7 +53,7 @@ function Appointments() {
     const [cityInputValue, setCityInputValue] = React.useState('');
 
 
-    //--------------------------------------------------------------------------------------------------------------
+    //-------------------------------------------- FUNCTIONS USED FOR RETRIEVING, FORMATTING DISPLAYING CLINICS ----------------------------------------------------------------
 
     const[apiClinicResponse, setClinicResponse] = React.useState([]);
 
@@ -98,7 +101,7 @@ function Appointments() {
         color: theme.palette.text.secondary,
     }));
 
-    //------------------------------------------------------------------------------------------------------
+    //-------------------------------------- FUNCTIONS USED FOR RETRIEVING, FORMATTING DISPLAYING APPOINTMENTS -------------------------------------------------------------
 
     const[apiAppointmentResponse, setAppointmentResponse] = React.useState([]);
 
@@ -129,7 +132,7 @@ function Appointments() {
     }
     
 
-    //------------------------------------------------------------------------------------------------------
+    //---------------------------------- FUNCTIONS USED FOR RETRIEVING, FORMATTING DELETING APPOINTMENTS -------------------------------------------------------------------
 
     function modifyAppointment(){
         setDisabled(true);
@@ -154,6 +157,16 @@ function Appointments() {
             .then(res => setAppointmentResponse(JSON.parse(res)));
         
     }
+
+    //-------------------------------------- FUNCTIONS USED FOR RETRIEVING, FORMATTING DISPLAYING APPOINTMENTS AT ADMIN LEVEL ---------------------------------------------------------
+
+    // const[apiAppointmentADMINResponse, setAppointmentADMINResponse] = React.useState([]);
+    
+    // function getAppointmentsFromDB() {
+    //     fetch("http://localhost:9000/testAPI/ADMINappointments")
+    //         .then(res => res.text())
+    //         .then(res => setAppointmentADMINResponse(JSON.parse(res)));
+    // }
 
     //-------------------------------------------------------------------------------------------------------
 
@@ -244,7 +257,7 @@ function Appointments() {
             />
         </ListItem>
         <ListItem>
-            <Button onClick={createAppointment}>Submit</Button>
+            <Button disabled={!disabled} onClick={createAppointment}>Submit</Button>
         </ListItem>
         <ListItem>
             <Button id="modify" disabled={disabled} onClick={modifyAppointment}>Delete Appointment</Button>
@@ -281,6 +294,38 @@ function Appointments() {
                 </Table>
             </TableContainer>
         </ListItem>
+        <Divider/>
+        {/* <ListItem>
+        <Typography variant = "h6" gutterBottom>
+            All Vaccine Appointments:
+        </Typography>
+        </ListItem>
+        <ListItem>
+            <TableContainer component={Paper}>
+                <Table sx={{minWidth: 650}} aria-label="customized table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell align="right">Name</TableCell>
+                            <TableCell align="right">Date</TableCell>
+                            <TableCell align="right">Address</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {apiAppointmentADMINResponse.map((row, i) => (
+                            <TableRow
+                                key={i}
+                                sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                            >
+                                <TableCell align="right">{apiAppointmentADMINResponse[i].personName}</TableCell>
+                                <TableCell align="right">{apiAppointmentADMINResponse[i].injectionDate}</TableCell>
+                                <TableCell align="right">{apiAppointmentADMINResponse[i].address}</TableCell>
+                            </TableRow>
+                        )
+                        )}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </ListItem> */}
         </List>
       </Container>
         </Grid>
