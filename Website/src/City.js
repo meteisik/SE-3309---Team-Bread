@@ -52,7 +52,11 @@ const Covid=()=> {//sets the react hooks
 
             <Box >
 
-                <Grid container spacing={1}>
+                <Grid container spacing={1}style={{
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    display:'flex'
+                }} >
 
 
                     <Grid item xs={1} >
@@ -89,11 +93,10 @@ const Covid=()=> {//sets the react hooks
                                 <Divider light />
 
                                 <ListItem>
-                                    <Box sx={{ height: 180 }}>
+                                  
                                         <label>OutBreak Districts in City</label>
                                         <TableCity1 apiResponses={apiResponse} style={{ width: 700 }} />
 
-                                    </Box>
                                 </ListItem>
 
                             </List>
