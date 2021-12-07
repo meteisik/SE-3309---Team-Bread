@@ -67,6 +67,7 @@ const Covid=()=> {//sets the react hooks
 
                                     <Table  style={{ width: 500  }}   />
                                     <input type={'text'} id={'txt'}></input><br/>
+                                    <label>Enter In a City Name</label>
                                     <button onClick={componentDidMount}>submit query</button>
 
                                 </ListItem>
