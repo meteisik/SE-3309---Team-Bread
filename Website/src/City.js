@@ -95,6 +95,9 @@ const Covid=()=> {//sets the react hooks
                                 <ListItem>
                                   
                                         <label>OutBreak Districts in City</label>
+
+ </ListItem>
+<ListItem>
                                         <TableCity1 apiResponses={apiResponse} style={{ width: 700 }} />
 
                                 </ListItem>
