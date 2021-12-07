@@ -214,6 +214,52 @@ router.get("/getClinics", function(req, res, next) {
         
     });
 
+    router.get("/remove", function(req, res, next) {
+        let conn=newConnection();
+        conn.connect();
+            
+        conn.query("SELECT cityName FROM city",(err,row,fields)=>{
+        if(err){ 
+            console.log(err);
+            }
+            else{
+                let allData={};
+
+            for(r in row){
+                allData[r]=row[r];
+            }
+
+            res.send(JSON.stringify(row))
+        }
+    });
+    conn.end();
+});
+
+
+router.get("/AverageStaff", function(req, res, next) {
+    
+    
+       
+        let conn=newConnection();
+        conn.connect();
+            
+        conn.query(`SELECT address, clinicName, 
+        clinicStaffTotal-(SELECT AVG(clinicStaffTotal) FROM VaccineClinic) AS cStaffDif
+        FROM VaccineClinic
+        WHERE clinicStaffTotal >(SELECT AVG(clinicStaffTotal) FROM VaccineClinic);`,(err,row,fields)=>{
+        if(err){ 
+            console.log(err);
+            }
+            else{
+                let allData={};
+                for(r in row){
+                    allData[r]=row[r];
+                }
+                res.send(JSON.stringify(row));
+            }
+        });
+        conn.end();
+    });
 //##################################  FOR APPOINTMENTS PAGE  #######################################
 
     router.get("/cities", function(req, res, next) {
