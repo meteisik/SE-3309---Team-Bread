@@ -414,26 +414,26 @@ router.post("/deleteAppointment", function(req, res, next) {
     conn.end();
 });
 
-router.get("/ADMINappointments", function(req, res, next) {
-    let conn=newConnection();
-    conn.connect();
+// router.get("/ADMINappointments", function(req, res, next) {
+//     let conn=newConnection();
+//     conn.connect();
         
-    conn.query("SELECT p.personName, v.injectionDate, v.address FROM person p, vaccineappointment v",(err,row,fields)=>{
-    if(err){ 
-        console.log(err);
-        }
-        else{
-            let allData={};
+//     conn.query("SELECT p.personName, v.injectionDate, v.address FROM person p, vaccineappointment v",(err,row,fields)=>{
+//     if(err){ 
+//         console.log(err);
+//         }
+//         else{
+//             let allData={};
 
-        for(r in row){
-            allData[r]=row[r];
-        }
+//         for(r in row){
+//             allData[r]=row[r];
+//         }
 
-        res.send(JSON.stringify(row))
-    }
-});
-conn.end();
-});
+//         res.send(JSON.stringify(row))
+//     }
+// });
+// conn.end();
+// });
 
 
 
